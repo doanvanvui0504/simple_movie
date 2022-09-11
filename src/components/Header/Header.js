@@ -39,7 +39,7 @@ function Header() {
     const { pathname } = useLocation();
     const headerRef = useRef(null);
 
-    const active = headerNav.findIndex((item) => item.path === pathname);
+    const active = headerNav.findIndex((item) => pathname === item.path);
 
     return (
         <div ref={headerRef} className="header">

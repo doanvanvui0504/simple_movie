@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import tmdbApi, { tvType, movieType, category } from '../../api/tmdbApi';
 import MovieCard from '../MovieCard/MovieCard';
-import { OutlineButton } from '../Button/Button';
+import Button, { OutlineButton } from '../Button/Button';
+import Input from '../Input/Input';
 
 import './MovieGrid.scss';
 
@@ -71,6 +72,9 @@ function MovieGrid({ category: cateProps }) {
 
     return (
         <>
+            <div className="section mb-3">
+                <MovieSearch category={cateProps} keyword={keyword}></MovieSearch>
+            </div>
             <div className="movie-grid">
                 {items.map((item, index) => (
                     <MovieCard key={index} data={item} category={cateProps}></MovieCard>
@@ -84,6 +88,45 @@ function MovieGrid({ category: cateProps }) {
                 </div>
             )}
         </>
+    );
+}
+
+export function MovieSearch({ keyword: keywordProps, category: cateProps }) {
+    const [keyword, setKeyword] = useState(keywordProps);
+
+    const navigate = useNavigate();
+
+    const goToSearch = useCallback(() => {
+        if (keyword.trim().length > 0) {
+            navigate(`/${category[cateProps]}/search/${keyword}`);
+        }
+    }, [keyword, navigate, cateProps]);
+
+    useEffect(() => {
+        const enterEvent = (e) => {
+            e.preventDefault();
+            if (e.keyCode === 13) {
+                goToSearch();
+            }
+        };
+        window.addEventListener('keyup', enterEvent);
+        return () => {
+            window.removeEventListener('keyup', enterEvent);
+        };
+    }, [goToSearch, keyword]);
+
+    return (
+        <div className="movie-search">
+            <Input
+                type="text"
+                placeholder="Enter Keyword"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+            />
+            <Button className="small" onClick={goToSearch}>
+                Search
+            </Button>
+        </div>
     );
 }
 

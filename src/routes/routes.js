@@ -1,7 +1,6 @@
 import Home from '../pages/Home';
 import Catalog from '../pages/Catalog';
-import Detail from '../pages/Detail';
-
+import Detail from '../pages/Detail/Detail';
 export const publicRoutes = [
     { path: '/', component: Home },
     { path: '/:category', component: Catalog },

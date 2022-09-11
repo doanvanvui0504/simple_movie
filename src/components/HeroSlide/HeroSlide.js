@@ -91,7 +91,7 @@ function HeroSlideItem({ data, className = '' }) {
                     <h2 className="title">{item.title}</h2>
                     <div className="overview">{item.overview}</div>
                     <div className="btns">
-                        <Button onClick={() => navigate('movie/' + item.id)}>Wacth Now</Button>
+                        <Button onClick={() => navigate('/movie/' + item.id)}>Wacth Now</Button>
                         <OutlineButton onClick={setModalActive}>Watch Trailer</OutlineButton>
                     </div>
                 </div>

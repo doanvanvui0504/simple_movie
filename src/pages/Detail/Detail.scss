@@ -1,0 +1,93 @@
+@use '../../scss' as *;
+
+.banner {
+    height: 50vh;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        
+        @include overlay();
+    }
+
+    &::after  {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background-image: linear-gradient(to top, $body-bg, rgba($black, 0));
+    }
+}
+
+.movie__content {
+    @include flex(flex-start, flex-start);
+
+    max-width: 924px;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -200px;
+    padding: 0 2rem;
+
+    &__poster {
+        flex: 1;
+
+        @include mobile {
+            display: none;
+        }
+
+        &__img {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            padding-top: 165%;
+            border-radius: $border-radius
+        }
+    };
+
+    &__info {
+        width: 70%;
+        padding-left: 2rem;
+        position: relative;
+
+        @include mobile {
+            width: 100%;
+            padding-left: 0;
+        }
+
+        & > * {
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            line-height: 1;
+        };
+
+        .genres {
+            & > * ~ * {
+                margin-left: .5rem;
+            }
+
+            &__item {
+                padding: .3rem 1.5rem;
+                border: 2px solid $white;
+                border-radius: $border-radius;
+                font-size: 0.4;
+                font-weight: 700;
+                background-color: $body-bg;
+            }
+        }
+
+        .overview {
+            font-size: .8rem;
+        }
+    }
+}
